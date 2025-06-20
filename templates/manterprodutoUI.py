@@ -1,6 +1,11 @@
 import streamlit as st
 import pandas as pd
-from View import View
+
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from View.View import View
 import time
 
 class ManterProdutoUI:
@@ -13,7 +18,7 @@ class ManterProdutoUI:
         with tab4: ManterProdutoUI.excluir()
 
     def listar():
-        produtos = View.produto_listar()
+        produtos = View.Produto_Listar()
         if (len(produtos) == 0):
             st.write("Nenhum produto cadastrado.")
         else:
@@ -30,14 +35,14 @@ class ManterProdutoUI:
 
         categoria = st.selectbox("Categoria", categorias)
         if st.button("Inserir"):
-            View.produto_inserir(descricao, preco,
+            View.Produto_Inserir(descricao, preco,
                                  estoque, categoria.get_id())
             st.sucess("Produto Inserido com sucesso,")
             time.sleep(2)
             st.rerun()
     
     def atualizar():
-        produtos = View.produto_listar()
+        produtos = View.Produto_Listar()
         if (len(produtos) == 0):
             st.write("Nenhum produto encontrado")
         else:
@@ -50,20 +55,20 @@ class ManterProdutoUI:
 
 
             if st.button("Atualizar"):
-                View.produto_atualizar(op.get_id(), descricao, preco, estoque, categoria.get_id())
+                View.Produto_Atualizar(op.get_id(), descricao, preco, estoque, categoria.get_id())
                 st.success("Produto atualizada com sucesso")
                 time.sleep(2)
                 st.rerun()
 
 
     def excluir():
-        produtos = View.produto_listar()
+        produtos = View.Produto_Listar()
         if (len(produtos) == 0):
             st.write("Nenhum produto cadastrado.")
         else:
             op = st.selectbox("Selecione o produto para excluir", produtos)
         if st.button("Excluir"):
-            View.produto_ecluir(op.get_id())
+            View.Produto_Excluir(op.get_id())
             st.sucess("Produto excluído com sucesso.")
             time.sleep(2)
             st.rerun()

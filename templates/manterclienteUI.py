@@ -13,7 +13,7 @@ class ManterClienteUI:
         with tab4: ManterClienteUI.excluir()
 
     def listar():
-        clientes = View.cliente_listar()
+        clientes = View.Cliente_Listar()
         if len(clientes) == 0: 
             st.write("Nenhum cliente cadastrado")
         else:    
@@ -28,13 +28,13 @@ class ManterClienteUI:
         senha = st.text_input("Senha", type="password")
         fone = st.text_input("Informe o fone: ")
         if st.button("Cadastrar"):
-            View.cliente_inserir(email, senha, nome, fone)
+            View.Cliente_Inserir(email, senha, nome, fone)
             st.success("Cliente inserido com sucesso")
             time.sleep(2)
             st.rerun()
 
     def atualizar():
-        clientes = View.cliente_listar()
+        clientes = View.Cliente_Listar()
         if len(clientes) == 0: 
             st.write("Nenhum cliente cadastrado")
         else:
@@ -43,19 +43,19 @@ class ManterClienteUI:
             email = st.text_input("Informe o novo e-mail", op.get_email())
             fone = st.text_input("Informe o novo fone", op.get_fone())
             if st.button("Atualizar"):
-                View.cliente_atualizar(op.get_id(), nome, email, fone)
+                View.Cliente_Atualizar(op.get_id(), nome, email, fone)
                 st.success("Cliente atualizado com sucesso")
                 time.sleep(2)
                 st.rerun()
 
     def excluir():
-        clientes = View.cliente_listar()
+        clientes = View.Cliente_Listar()
         if len(clientes) == 0: 
             st.write("Nenhum cliente cadastrado")
         else:
             op = st.selectbox("Exclusão de cliente", clientes)
             if st.button("Excluir"):
-                View.cliente_excluir(op.get_id())
+                View.Cliente_Excluir(op.get_id())
                 st.success("Cliente excluído com sucesso")
                 time.sleep(2)
                 st.rerun()

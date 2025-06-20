@@ -33,7 +33,7 @@ class Produto:
     def set_id_categoria(self, id_categoria):
         if (id_categoria == ""): 
             raise ValueError("A categoria não pode estar vazia")
-        self.id__categoria = id_categoria
+        self.__id_categoria = id_categoria
 
 #get
 
