@@ -16,7 +16,7 @@ class IndexUI:
     
     def main():
         # verifica a existe o usuário admin
-        #View.cadastrar_admin()
+        View.cadastrar_admin()
 
         # monta o sidebar
         IndexUI.sidebar()

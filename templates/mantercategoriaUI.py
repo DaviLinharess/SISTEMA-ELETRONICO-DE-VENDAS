@@ -25,7 +25,7 @@ class ManterCategoriaUI:
         descricao = st.text_input("Descricao da categoria")
         if st.button("Inserir"):
             View.categoria_inserir(descricao)
-            st.sucess("Categoria inserida")
+            st.success("Categoria inserida")
             time.sleep(2)
             st.rerun()
 

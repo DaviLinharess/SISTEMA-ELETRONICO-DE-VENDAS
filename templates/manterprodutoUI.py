@@ -29,7 +29,7 @@ class ManterProdutoUI:
 
     def inserir():
         descricao = st.text_input("Decrição do produto")
-        preco = st.number_input_input("Preço", format="%.2f")
+        preco = st.number_input("Preço", format="%.2f")
         estoque = st.number_input("Estoque")
         categorias = View.categoria_listar()
 
@@ -37,7 +37,7 @@ class ManterProdutoUI:
         if st.button("Inserir"):
             View.Produto_Inserir(descricao, preco,
                                  estoque, categoria.get_id())
-            st.sucess("Produto Inserido com sucesso,")
+            st.success("Produto Inserido com sucesso,")
             time.sleep(2)
             st.rerun()
     
@@ -69,6 +69,6 @@ class ManterProdutoUI:
             op = st.selectbox("Selecione o produto para excluir", produtos)
         if st.button("Excluir"):
             View.Produto_Excluir(op.get_id())
-            st.sucess("Produto excluído com sucesso.")
+            st.success("Produto excluído com sucesso.")
             time.sleep(2)
             st.rerun()

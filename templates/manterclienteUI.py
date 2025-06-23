@@ -23,9 +23,9 @@ class ManterClienteUI:
             st.dataframe(df)
 
     def inserir():
-        nome = st.text_input("Informe o nome: ")
         email = st.text_input("Informe o e-mail: ")
         senha = st.text_input("Senha", type="password")
+        nome = st.text_input("Informe o nome")
         fone = st.text_input("Informe o fone: ")
         if st.button("Cadastrar"):
             View.Cliente_Inserir(email, senha, nome, fone)
