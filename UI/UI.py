@@ -70,6 +70,7 @@ class UI:
             print("12 - Excluir Produto")
             print("13 - Reajustar Preços dos Produtos")
             print("14 - Listar produtos por categoria")
+            print("15 - Listar Vendas")
             print("0 - Sair")
             try:
                 op = int(input("Escolha uma opção: "))
@@ -88,6 +89,7 @@ class UI:
                 elif op == 12: UI.Produto_Excluir()
                 elif op == 13: UI.Produto_Reajustar()
                 elif op == 14: UI.produto_listar_por_categoria()
+                elif op == 15: UI.Venda_Listar()
 
                 else: print("Opção inválida.")
             except ValueError:
@@ -101,7 +103,8 @@ class UI:
             print("2 - Ver Carrinho")
             print("3 - Adicionar Produto ao Carrinho")
             print("4 - Finalizar Compra")
-            print("5 - Listar Produtos por Categoria")
+            print("5 - Minhas Compras")
+            print("6 - Listar Produtos por Categoria")
             print("0 - Sair")
             try:
                 op = int(input("Escolha uma opção: "))
@@ -110,7 +113,8 @@ class UI:
                 elif op == 2: UI.carrinho_listar_id(id_cliente)
                 elif op == 3: UI.carrinho_adicionar_id(id_cliente)
                 elif op == 4: UI.carrinho_finalizar_id(id_cliente)
-                elif op == 5: UI.produto_listar_por_categoria()
+                elif op == 5: UI.Minhas_Compras(id_cliente)
+                elif op == 6: UI.produto_listar_por_categoria()
                 else: print("Opção inválida.")
             except ValueError:
                 print("Digite um número válido.")
@@ -263,6 +267,52 @@ class UI:
         except ValueError:
             print("Percentual inválido.")
 
+#PARTE DAS VENDAS
+    @staticmethod
+    def Venda_Listar():
+        print("\n--- Histórico de Todas as Vendas ---")
+        vendas = View.Venda_Listar()
+        if not vendas:
+            print("Nenhuma venda finalizada encontrada.")
+            return
+
+        for venda in sorted(vendas, key=lambda v: v.get_id()):
+            cliente = View.Cliente_Listar_id(venda.get_id_cliente())
+            nome_cliente = cliente.get_nome() if cliente else "Cliente não encontrado"
+            print("-" * 30)
+            print(f"ID da Venda: {venda.get_id()}")
+            print(f"Data: {venda.get_data().strftime('%d/%m/%Y %H:%M')}")
+            print(f"Cliente: {nome_cliente} (ID: {venda.get_id_cliente()})")
+            print(f"Total: R$ {venda.get_total():.2f}")
+            print("Itens:")
+            itens = View.Venda_Itens_Listar(venda.get_id())
+            for item in itens:
+                produto = View.Produto_Listar_id(item.get_id_produto())
+                nome_produto = produto.get_descricao() if produto else "Produto não encontrado"
+                print(f"  - {item.get_qtd()}x {nome_produto} @ R$ {item.get_preco():.2f}")
+        print("-" * 30)
+
+
+    @staticmethod
+    def Minhas_Compras(id_cliente):
+        print("\n--- Meu Histórico de Compras ---")
+        vendas = View.Venda_Listar_Cliente(id_cliente)
+        if not vendas:
+            print("Você ainda não finalizou nenhuma compra.")
+            return
+
+        for venda in sorted(vendas, key=lambda v: v.get_id()):
+            print("-" * 30)
+            print(f"ID da Compra: {venda.get_id()}")
+            print(f"Data: {venda.get_data().strftime('%d/%m/%Y %H:%M')}")
+            print(f"Total: R$ {venda.get_total():.2f}")
+            print("Itens:")
+            itens = View.Venda_Itens_Listar(venda.get_id())
+            for item in itens:
+                produto = View.Produto_Listar_id(item.get_id_produto())
+                nome_produto = produto.get_descricao() if produto else "Produto não encontrado"
+                print(f"  - {item.get_qtd()}x {nome_produto} @ R$ {item.get_preco():.2f}")
+        print("-" * 30)
 
 #PARTE DO CARRINHO
     @staticmethod

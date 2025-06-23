@@ -113,6 +113,32 @@ class View:
             produto.set_preco(novo_preco)
             Produtos.atualizar(produto)
     
+#MÉTODOS DE CLIENTE (Complemento)
+    @staticmethod
+    def Cliente_Listar_id(id: int):
+        return Clientes.listar_id(id)
+
+#MÉTODOS DE PRODUTO (Complemento)
+    @staticmethod
+    def Produto_Listar_id(id: int):
+        return Produtos.listar_id(id)
+
+#MÉTODOS DE VENDA
+    @staticmethod
+    def Venda_Listar():
+        # Retorna todas as vendas que não são mais carrinhos
+        return [v for v in Vendas.listar() if not v.get_carrinho()]
+
+    @staticmethod
+    def Venda_Listar_Cliente(id_cliente):
+        # Retorna as vendas finalizadas de um cliente específico
+        return [v for v in Vendas.listar() if v.get_id_cliente() == id_cliente and not v.get_carrinho()]
+
+    @staticmethod
+    def Venda_Itens_Listar(id_venda):
+        # Retorna os itens de uma venda específica
+        return [item for item in VendaItens.listar() if item.get_id_venda() == id_venda]
+
     
 
 #CARRINHO
