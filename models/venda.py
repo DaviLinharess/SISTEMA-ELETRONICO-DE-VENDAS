@@ -1,5 +1,6 @@
 import json
 from datetime import datetime
+from models.modelo import Modelo
 
 class Venda:
     def __init__(self, id, data, total, id_cliente, carrinho=True):
@@ -61,48 +62,8 @@ class Venda:
         dic["carrinho"] = self.__carrinho
         return dic
     
-class Vendas:      # Persistência - Armazena os objetos em um arquivo/banco de dados
-    objetos = []   # estático - Não tem instância
-
-    @classmethod
-    def inserir(cls, obj):
-        cls.abrir()
-        m = 0
-        for x in cls.objetos:
-            if (x.get_id() > m):
-                m = x.get_id()
-        obj.set_id(m + 1)
-        cls.objetos.append(obj)
-        cls.salvar() 
-
-    @classmethod
-    def listar(cls):
-        cls.abrir()
-        return cls.objetos
+class Vendas(Modelo):      # Persistência - Armazena os objetos em um arquivo/banco de dados
     
-    @classmethod
-    def listar_id(cls, id):
-        cls.abrir()
-        for obj in cls.objetos:
-            if (obj.get_id() == id):
-                return obj
-        return None         
-          
-    @classmethod
-    def atualizar(cls, obj):
-        x = cls.listar_id(obj.get_id())
-        if (x is not None): 
-            cls.objetos.remove(x)
-            cls.objetos.append(obj)
-            cls.salvar()
-
-    @classmethod
-    def excluir(cls, obj):
-        x = cls.listar_id(obj.get_id())
-        if (x is not None): 
-            cls.objetos.remove(x)
-            cls.salvar()
-
     @classmethod
     def abrir(cls):
         from datetime import datetime
@@ -117,10 +78,10 @@ class Vendas:      # Persistência - Armazena os objetos em um arquivo/banco de 
                         dic["id_cliente"],
                         dic["carrinho"])
                     cls.objetos.append(obj)
-        except FileNotFoundError:
+        except (FileNotFoundError, json.JSONDecodeError):
             pass 
                    
     @classmethod
     def salvar(cls):
         with open("vendas.json", mode="w") as arquivo:
-            json.dump([v.to_json() for v in cls.objetos], arquivo)
+            json.dump([v.to_json() for v in cls.objetos], arquivo, indent=4)

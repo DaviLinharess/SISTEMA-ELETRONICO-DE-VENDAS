@@ -1,4 +1,5 @@
 import json
+from models.modelo import Modelo
 
 class Cliente:
     def __init__(self, id, email, senha, nome, fone, e_admin):
@@ -78,46 +79,7 @@ class Cliente:
         }
 
 
-class Clientes:
-    objetos = []   #estático - Não tem instância
-    
-    @classmethod
-    def inserir(cls, obj):
-        cls.abrir()
-        m = 0
-        if (len(cls.objetos) > 0):
-            m = max(cls.objetos, key=lambda c: c.get_id()).get_id()
-        obj.set_id(m + 1)
-        cls.objetos.append(obj)
-        cls.salvar() 
-
-    @classmethod
-    def listar(cls):
-        cls.abrir()
-        return cls.objetos
-    
-    @classmethod
-    def listar_id(cls, id):
-        cls.abrir()
-        for obj in cls.objetos:
-            if (obj.get_id() == id):
-                return obj
-        return None    
-               
-    @classmethod
-    def atualizar(cls, obj):
-        x = cls.listar_id(obj.get_id())
-        if (x is not None): 
-            cls.objetos.remove(x)
-            cls.objetos.append(obj)
-            cls.salvar()
-
-    @classmethod
-    def excluir(cls, obj):
-        x = cls.listar_id(obj.get_id())
-        if (x is not None): 
-            cls.objetos.remove(x)
-            cls.salvar()
+class Clientes(Modelo):
 
     @classmethod
     def abrir(cls):
@@ -133,14 +95,14 @@ class Clientes:
                                   dic["fone"],
                                   dic["e_admin"])
                     cls.objetos.append(obj)
-        except FileNotFoundError:
+        except (FileNotFoundError, json.JSONDecodeError):
             pass      
 
     @classmethod
     def salvar(cls):
         with open("clientes.json", mode="w") as arquivo:  #abre ou cria o "clientes.json para escrita (model ="w")
-            json.dump([c.to_json() for c in cls.objetos], arquivo) #json.dump() pra escrever os dados em JSON
-                                                                   #cls.objetos é a lista de instancias da class "Cliente"
-                                                                   #c.to_json() método de cada objeto Cliente, transforma os dados
-                                                                   # em um dicionario serializavel 
-                                                                   # o [] converte os objetos "Cliente" para dicionarios JSON
+            json.dump([c.to_json() for c in cls.objetos], arquivo, indent=4) #json.dump() pra escrever os dados em JSON
+                                                                             #cls.objetos é a lista de instancias da class "Cliente"
+                                                                             #c.to_json() método de cada objeto Cliente, transforma os dados
+                                                                             # em um dicionario serializavel 
+                                                                             # o [] converte os objetos "Cliente" para dicionarios JSON

@@ -1,4 +1,5 @@
 import json
+from models.modelo import Modelo #classe base
 
 class Categoria:
     def __init__(self, id, descricao):
@@ -37,46 +38,7 @@ class Categoria:
         }
 
 
-class Categorias:
-    objetos = []   # Não tem instância
-    
-    @classmethod
-    def inserir(cls, obj):
-        cls.abrir()
-        m = 0
-        if len(cls.objetos) > 0:
-            m = max(cls.objetos, key=lambda x: x.get_id()).get_id()
-        obj.set_id(m + 1)    
-        cls.objetos.append(obj)
-        cls.salvar()
-    
-    @classmethod
-    def listar(cls):
-        cls.abrir()
-        return cls.objetos
-    
-    @classmethod
-    def listar_id(cls, id):
-        cls.abrir()
-        for obj in cls.objetos:
-            if (obj.get_id() == id):
-                return obj
-        return None   
-                
-    @classmethod
-    def atualizar(cls, obj):
-        x = cls.listar_id(obj.get_id())
-        if (x is not None): 
-            cls.objetos.remove(x)
-            cls.objetos.append(obj)
-            cls.salvar()
-
-    @classmethod
-    def excluir(cls, obj):
-        x = cls.listar_id(obj.get_id())
-        if (x is not None): 
-            cls.objetos.remove(x)
-            cls.salvar()
+class Categorias(Modelo): #herdando "Modelo"
 
     @classmethod
     def abrir(cls):
@@ -88,10 +50,10 @@ class Categorias:
                     obj = Categoria(dic["id"], 
                                     dic["descricao"])
                     cls.objetos.append(obj)
-        except FileNotFoundError:
+        except (FileNotFoundError, json.JSONDecodeError): #caso nao exista ou estar vazio
             pass
 
     @classmethod
     def salvar(cls):
         with open("categorias.json", mode="w") as arquivo:
-            json.dump([c.to_json() for c in cls.objetos], arquivo)
+            json.dump([c.to_json() for c in cls.objetos], arquivo, indent=4)
