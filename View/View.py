@@ -16,6 +16,15 @@ class View:
 #MÉTODOS DE CLIENTE
 
     @staticmethod
+    def cliente_autenticar(email, senha):
+        for c in View.Cliente_Listar():
+            if c.get_email() == email and c.get_senha() == senha:
+                return {"id": c.get_id(),
+                        "nome": c.get_nome(),
+                        "e_admin":c.get_e_admin()}
+        return None
+
+    @staticmethod
     def Cliente_Listar():
         return Clientes.listar()
 

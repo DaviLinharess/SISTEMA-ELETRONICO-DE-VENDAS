@@ -12,8 +12,6 @@ class ManterVendaUI:
         if len(vendas) == 0:
             st.write("Nenhuma venda foi encontrada.")
         else:
-            # Criamos uma lista de dicionários manualmente para ter nomes de coluna amigáveis
-            # e para incluir o nome do cliente, em vez de apenas o ID.
             dados_venda = []
             for v in vendas:
                 cliente = View.Cliente_Listar_id(v.get_id_cliente())
