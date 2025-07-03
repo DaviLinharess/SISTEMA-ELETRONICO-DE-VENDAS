@@ -1,8 +1,12 @@
-from Model.cliente import Cliente, Clientes
-from Model.categoria import Categoria, Categorias
-from Model.produto import Produto, Produtos
-from Model.vendaitem import VendaItem, VendaItens
-from Model.vendas import Venda, Vendas
+from models.cliente import Cliente, Clientes
+from models.categoria import Categoria, Categorias
+from models.produto import Produto, Produtos
+from models.vendaitem import VendaItem, VendaItens
+from models.venda import Venda, Vendas
+from models.entrega import Entrega, Entregas
+from models.entregador import Entregador, Entregadores
+
+
 
 
 class View:
@@ -16,13 +20,26 @@ class View:
 #MÉTODOS DE CLIENTE
 
     @staticmethod
-    def cliente_autenticar(email, senha):
-        for c in View.Cliente_Listar():
-            if c.get_email() == email and c.get_senha() == senha:
-                return {"id": c.get_id(),
-                        "nome": c.get_nome(),
-                        "e_admin":c.get_e_admin()}
-        return None
+    def autenticar_usuario(email, senha):
+        for cliente in Clientes.listar(): #tenta entrar como cliente ou admin
+            if cliente.get_email() == email and cliente.get_senha() == senha:
+                return {
+                    "id": cliente.get_id(),
+                    "nome": cliente.get_nome(),
+                    "e_admin": cliente.get_e_admin(),
+                    "e_entregador": False  # não é um entregador
+                }
+    
+        for entregador in Entregadores.listar(): #se não é cliente, tenta como entregador
+            if entregador.get_email() == email and entregador.get_senha() == senha:
+                return {
+                    "id": entregador.get_id(),
+                    "nome": entregador.get_nome(),
+                    "e_admin": False, # não é  admin
+                    "e_entregador": True  # é entregador
+                }
+        
+        return None #se não encontrou nenhum, retorna None
 
     @staticmethod
     def Cliente_Listar():
@@ -122,6 +139,37 @@ class View:
             produto.set_preco(novo_preco)
             Produtos.atualizar(produto)
     
+#MÉTODO ENTREGADOR
+    @staticmethod
+    def Entregador_Listar():
+        return Entregadores.listar()
+    
+    @staticmethod
+    def Entregador_Inserir(nome, email, senha, fone):
+        for entregador in Entregadores.listar():
+            if entregador.get_email() == email():
+                raise ValueError(f"O email '{email}' já está em uso.")
+        novo_entregador=Entregador(None, nome, email, senha, fone)
+        Entregadores.inserir(novo_entregador)
+
+    @staticmethod
+    def Entregador_Atualizar(id, nome, email, fone):
+        entregador = Entregadores.listar_id(id)
+        if entregador is None:
+            raise ValueError("ID do entregador é inválido")
+        
+        entregador.set_nome(nome)
+        entregador.set_email(email)
+        entregador.set_fone(fone)
+        Entregadores.atualizar(entregador)
+
+    @staticmethod
+    def Entregador_Excluir(id):
+        entregador = Entregadores.listar_id(id)
+        if entregador is None:
+            raise ValueError("ID do entregador é inválido")
+        Entregadores.excluir(entregador)
+
 #MÉTODOS DE CLIENTE (Complemento)
     @staticmethod
     def Cliente_Listar_id(id: int):
@@ -148,6 +196,35 @@ class View:
         # Retorna os itens de uma venda específica
         return [item for item in VendaItens.listar() if item.get_id_venda() == id_venda]
 
+    @staticmethod
+    def Venda_Listar_Pendentes(): #vendas finalizadas que não foram entregues
+        vendas_finalizadas = [v for v in Vendas.listar() if not v.get_carrinho()]
+        entregas_iniciadas_ids = [e.get_id_venda() for e in Entregas.listar()]
+
+        vendas_pendentes = []
+        for v in vendas_finalizadas: #entre as vendas finalizadas
+            if v.get_id() not in entregas_iniciadas_ids: #se ela nao tiver sido entregue ainda
+                vendas_pendentes.append(v) #adiciona  alista de vendas pendentes
+        return vendas_pendentes
+    
+    @staticmethod
+    def Iniciar_Entrega(id_venda, id_entregador):
+        from datetime import datetime
+
+        for entrega_existente in Entregas.listar(): #se a venda ja foi escolhida por um entregador
+            if entrega_existente.get_id_venda() == id_venda:
+                raise ValueError("Esta venda ja possui entrega escolhida")
+            
+        nova_entrega = Entrega(
+            id=None,
+            id_venda=id_venda,
+            id_entregador=id_entregador,
+            status="Pendente",
+            data=datetime.now()
+        )
+        Entregas.inserir(nova_entrega)
+
+            
     
 
 #CARRINHO
