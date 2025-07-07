@@ -30,8 +30,8 @@ class IndexUI:
         if op == "Listagem de Vendas": ManterVendaUI.main()
 
     def menu_cliente():
-        op = st.sidebar.selectbox("Menu", ["Listar Produtos", "Meu Carrinho", "Meus Pedidos"])
-        if op == "Listar Produtos": ListarProdutosUI.main()
+        op = st.sidebar.selectbox("Menu", ["Ver Produtos", "Meu Carrinho", "Meus Pedidos"])
+        if op == "Ver Produtos": ListarProdutosUI.main()
         if op == "Meu Carrinho": VerCarrinhoUI.main()
         if op == "Meus Pedidos": MinhasComprasUI.main()
 

@@ -1,51 +1,42 @@
+# templates/minhascomprasUI.py
 import streamlit as st
-from View import View
-import time
+from View.View import View
+from datetime import datetime
 
 class MinhasComprasUI:
     def main():
-        st.header("Meu Histórico de Compras")
+        st.header("Meus Pedidos")
 
         id_cliente = st.session_state.get("cliente_id")
         if id_cliente is None:
-            st.error("Faça login pra ver seu histórico de compras")
+            st.error("Faça o login para ver seus pedidos.")
             return
 
+        # Chama a nova função que acabamos de criar na View
         minhas_vendas = View.Venda_Listar_Cliente(id_cliente)
 
-        if len(minhas_vendas) == 0:
-            st.info("Não tem compras finalizadas")
-        else:
-            vendas_ordenadas = sorted(minhas_vendas, key=lambda v: v.get_data(), reverse=True)
-            
-            for venda in vendas_ordenadas:
-                st.subheader(f"Pedido #{venda.get_id()} - Realizado em: {venda.get_data().strftime('%d/%m/%Y')}")
+        if not minhas_vendas:
+            st.info("Você ainda não realizou nenhuma compra.")
+            return
+
+        # Ordena as vendas da mais recente para a mais antiga
+        minhas_vendas.sort(key=lambda x: datetime.strptime(x.get_data(), "%d/%m/%Y %H:%M"), reverse=True)
+
+        for venda in minhas_vendas:
+            # Usamos um expander para cada pedido, fica mais organizado
+            with st.expander(f"Pedido de {venda.get_data()} - Total: R$ {venda.get_total():.2f}"):
                 
-                itens_da_venda = View.Venda_Itens_Listar(venda.get_id())
+                st.write(f"**Status da Entrega:** {'Entregue' if venda.get_entregue() else 'A caminho'}")
+                st.markdown("---")
                 
+                # Para cada venda, buscamos os itens dela
+                itens_da_venda = View.VendaItem_Listar(venda.get_id())
                 if not itens_da_venda:
-                    st.write("Nao tem itens no pedido")
+                    st.write("Não foi possível carregar os itens deste pedido.")
                 else:
                     for item in itens_da_venda:
                         produto = View.Produto_Listar_id(item.get_id_produto())
                         if produto:
-                            # colunas para alinhar o nome do produto e o botão
-                            col1, col2 = st.columns([3, 1])
-                            with col1:
-                                st.text(f"- {produto.get_descricao()}")
-                                st.caption(f"  Quantidade: {item.get_qtd()} | Preço: R$ {item.get_preco():.2f}")
-                            with col2:
-                                # chave única para cada botão para evitar conflitos
-                                key_button = f"buy_again_{venda.get_id()}_{item.get_id()}"
-                                
-                                if st.button("Comprar novamente", key=key_button):
-                                    try:
-                                        # adiciona 1 unidade do produto ao carrinho
-                                        View.carrinho_adicionar(id_cliente, produto.get_id(), 1)
-                                        st.success(f'"{produto.get_descricao()}" foi adicionado ao seu carrinho!')
-                                        time.sleep(2) # pausa pra ler a mensagem
-                                    except Exception as e:
-                                        st.error(f"Erro ao adicionar ao carrinho: {e}")
-                
-                st.write(f"Total do Pedido: R$ {venda.get_total():.2f}")
-                st.markdown("---")
+                            st.write(f"- **Produto:** {produto.get_descricao()}")
+                            st.write(f"  **Quantidade:** {item.get_qtd()}")
+                            st.write(f"  **Preço Unitário:** R$ {item.get_preco():.2f}")

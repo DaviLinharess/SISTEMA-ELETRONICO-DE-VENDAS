@@ -1,1 +1,37 @@
-[{"id": 1, "qtd": 1, "preco": 408.0, "id_venda": 1, "id_produto": 5}, {"id": 2, "qtd": 1, "preco": 408.0, "id_venda": 2, "id_produto": 5}]
+[
+    {
+        "id": 1,
+        "qtd": 1,
+        "preco": 408.0,
+        "id_venda": 1,
+        "id_produto": 5
+    },
+    {
+        "id": 2,
+        "qtd": 1,
+        "preco": 408.0,
+        "id_venda": 2,
+        "id_produto": 5
+    },
+    {
+        "id": 3,
+        "qtd": 1,
+        "preco": 1020.0,
+        "id_venda": 1,
+        "id_produto": 4
+    },
+    {
+        "id": 4,
+        "qtd": 1,
+        "preco": 3.5598,
+        "id_venda": 1,
+        "id_produto": 1
+    },
+    {
+        "id": 5,
+        "qtd": 1,
+        "preco": 408.0,
+        "id_venda": 1,
+        "id_produto": 5
+    }
+]

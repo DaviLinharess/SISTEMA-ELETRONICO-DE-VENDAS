@@ -1,1 +1,37 @@
-[{"id": 1, "descricao": "Alface", "preco": 3.5598, "estoque": 20, "id_categoria": 1}, {"id": 2, "descricao": "Tomate", "preco": 5.0898, "estoque": 40, "id_categoria": 1}, {"id": 3, "descricao": "Tablet", "preco": 1734.0, "estoque": 15, "id_categoria": 2}, {"id": 4, "descricao": "TV 32'", "preco": 1020.0, "estoque": 32, "id_categoria": 2}, {"id": 5, "descricao": "Mesa", "preco": 408.0, "estoque": 18, "id_categoria": 3}]
+[
+    {
+        "id": 2,
+        "descricao": "Tomate",
+        "preco": 5.0898,
+        "estoque": 40,
+        "id_categoria": 1
+    },
+    {
+        "id": 3,
+        "descricao": "Tablet",
+        "preco": 1734.0,
+        "estoque": 15,
+        "id_categoria": 2
+    },
+    {
+        "id": 4,
+        "descricao": "TV 32'",
+        "preco": 1020.0,
+        "estoque": 31,
+        "id_categoria": 2
+    },
+    {
+        "id": 1,
+        "descricao": "Alface",
+        "preco": 3.5598,
+        "estoque": 19,
+        "id_categoria": 1
+    },
+    {
+        "id": 5,
+        "descricao": "Mesa",
+        "preco": 408.0,
+        "estoque": 16,
+        "id_categoria": 3
+    }
+]

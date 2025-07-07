@@ -207,6 +207,18 @@ class View:
         return [v for v in Vendas.listar() if not v.get_carrinho()]
 
     @staticmethod
+    def Venda_Listar_Cliente(cls, id_cliente):
+        cls.Venda_abrir()
+        
+        vendas_do_cliente = []
+
+        for venda in Vendas.listar():
+            if venda.get_id_cliente() == id_cliente:
+                vendas_do_cliente.append(venda)
+                
+        return vendas_do_cliente
+    
+    @staticmethod
     def Venda_Listar_Cliente(id_cliente):
         # Retorna as vendas finalizadas de um cliente específico
         return [v for v in Vendas.listar() if v.get_id_cliente() == id_cliente and not v.get_carrinho()]
@@ -226,6 +238,7 @@ class View:
             if v.get_id() not in entregas_iniciadas_ids: #se ela nao tiver sido entregue ainda
                 vendas_pendentes.append(v) #adiciona  alista de vendas pendentes
         return vendas_pendentes
+    
     
     @staticmethod
     def Iniciar_Entrega(id_venda, id_entregador):
