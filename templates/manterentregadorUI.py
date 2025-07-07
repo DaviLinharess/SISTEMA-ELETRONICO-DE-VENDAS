@@ -17,7 +17,7 @@ class ManterEntregadorUI:
             ManterEntregadorUI.excluir()
     
     def listar():
-        entregadores = View.Entregador_listar()
+        entregadores = View.Entregador_Listar()
         if len(entregadores) == 0:
             st.write("Nenhum entregador cadastrado.")
         else:

@@ -5,9 +5,12 @@ from templates.manterclienteUI import ManterClienteUI
 from templates.manterprodutoUI import ManterProdutoUI
 from templates.mantervendaUI import ManterVendaUI
 from templates.loginUI import LoginUI
+from templates.abrircontaUI import AbrirContaUI
 from templates.manterentregadorUI import ManterEntregadorUI 
 from templates.manterentregaUI import ManterEntregaUI
 from templates.minhascomprasUI import MinhasComprasUI
+from templates.listarprodutosUI import ListarProdutosUI
+from templates.vercarrinhoUI import VerCarrinhoUI
 
 
 class IndexUI:
@@ -15,7 +18,7 @@ class IndexUI:
     def menu_visitante():
         op = st.sidebar.selectbox("Menu", ["Entrar no Sistema", "Abrir Conta"])
         if op == "Entrar no Sistema": LoginUI.main()
-        #if op == "Abrir Conta": AbrirContaUI.main()
+        if op == "Abrir Conta": AbrirContaUI.main()
 
 
     def menu_admin():            
@@ -27,8 +30,11 @@ class IndexUI:
         if op == "Listagem de Vendas": ManterVendaUI.main()
 
     def menu_cliente():
-        op = st.sidebar.selectbox("Menu", ["Listar Produtos", "Adicionar Produto no Carrinho", "Ver Carrinho", "Fechar Pedido", "Ver Meus Pedidos"])
-        if op == "Ver Meus Pedidos": MinhasComprasUI.main()
+        op = st.sidebar.selectbox("Menu", ["Listar Produtos", "Meu Carrinho", "Meus Pedidos"])
+        if op == "Listar Produtos": ListarProdutosUI.main()
+        if op == "Meu Carrinho": VerCarrinhoUI.main()
+        if op == "Meus Pedidos": MinhasComprasUI.main()
+
         
     def menu_entregador():
         ManterEntregaUI.main()

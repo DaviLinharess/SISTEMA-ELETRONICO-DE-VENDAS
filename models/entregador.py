@@ -70,7 +70,8 @@ class Entregador:
         }
 
 class Entregadores(Modelo):
-
+    
+    @classmethod
     def abrir(cls):
         cls.objetos = []
         try:     
@@ -88,6 +89,7 @@ class Entregadores(Modelo):
         except (FileNotFoundError, json.JSONDecodeError):
             pass
 
+    @classmethod
     def salvar(cls):
         with open("entregadores.json", mode="w") as arquivo:
             json.dump([e.to_json() for e in cls.objetos], arquivo, indent=4)
