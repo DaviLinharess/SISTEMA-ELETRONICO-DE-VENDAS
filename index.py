@@ -6,6 +6,8 @@ from templates.manterprodutoUI import ManterProdutoUI
 from templates.mantervendaUI import ManterVendaUI
 from templates.loginUI import LoginUI
 from templates.manterentregadorUI import ManterEntregadorUI 
+from templates.manterentregaUI import ManterEntregaUI 
+
 
 class IndexUI:
 
@@ -27,9 +29,8 @@ class IndexUI:
         op = st.sidebar.selectbox("Menu", ["Listar Produtos", "Adicionar Produto no Carrinho", "Ver Carrinho", "Fechar Pedido", "Ver Meus Pedidos"])
 
     def menu_entregador():
-        op = st.sidebar.selectbox("Menu", ["Listar Minhas Entregas", "Confirmar Entrega"])
-        if op == "Listar Minhas Entregas": st.write("em construção")
-        if op == "Confirmar Entrega": st.write("em construção")
+        ManterEntregaUI.main()
+        
 
     def sair_do_sistema():
         if st.sidebar.button("Sair"):

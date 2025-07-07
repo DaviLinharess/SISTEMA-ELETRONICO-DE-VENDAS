@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from View.View import View
+import time
 
 class ManterVendaUI:
     def main():

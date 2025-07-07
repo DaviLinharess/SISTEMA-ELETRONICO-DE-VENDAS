@@ -170,6 +170,26 @@ class View:
             raise ValueError("ID do entregador é inválido")
         Entregadores.excluir(entregador)
 
+    @staticmethod
+    def Entrega_Listar_Entregador(id_entregador): #retorna uma lista de entregas de certo entregador
+        minhas_entregas = []
+        for entrega in Entregas.listar():
+            if entrega.get_id_entregador() == id_entregador:
+                minhas_entregas.append(entrega)
+        return minhas_entregas
+    
+    @staticmethod
+    def Confirmar_Entrega(id_entrega): #altera o endereço da entrega para "Entregue"
+        entrega = Entregas.listar_id(id_entrega)
+        if entrega is None:
+            raise ValueError("ID de entrega inválido")
+        
+        if entrega.get_status() == "Entregue":
+            raise ValueError("Essa entrega ja foi confirmada.")
+        
+        entrega.set_status("Entregue")
+        Entregas.atualizar(entrega)
+
 #MÉTODOS DE CLIENTE (Complemento)
     @staticmethod
     def Cliente_Listar_id(id: int):

@@ -21,12 +21,17 @@ class ManterEntregadorUI:
         if len(entregadores) == 0:
             st.write("Nenhum entregador cadastrado.")
         else:
-            dic = []
+            dicionario = []
             for obj in entregadores:
-                dic.append(obj.__dict__)
+                dicionario.append({
+                    "ID": obj.get_id(),
+                    "Nome": obj.get_nome(),
+                    "Email": obj.get_email(),
+                    "Fone": obj.get_fone()
+                })
 
-            df = pd.DataFrame(dic)
-            st.dataframe(df)
+            df = pd.DataFrame(dicionario)
+            st.dataframe(df, hide_index=True)
     
     def inserir():
         nome = st.text_input("Informe o nome do entregador")
