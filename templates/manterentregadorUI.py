@@ -17,7 +17,7 @@ class ManterEntregadorUI:
             ManterEntregadorUI.excluir()
     
     def listar():
-        entregadores = View.Entregador.listar()
+        entregadores = View.Entregador_listar()
         if len(entregadores) == 0:
             st.write("Nenhum entregador cadastrado.")
         else:
@@ -49,15 +49,30 @@ class ManterEntregadorUI:
                 st.error(f"Ocorreu um erro: {e}")
     
     def atualizar():
-        entregadores: View.Entregador_Listar()
+        entregadores = View.Entregador_Listar()
         if len(entregadores) == 0:
             st.write("Nenhum entregador pra atualizar")
+            return
         
-        entregador_selecionado = st.selectbox("Selecione o entregador para atualizar", entregadores)
+        entregador_selecionado = st.selectbox(
+            "Selecione o entregador para atualizar",
+            entregadores,
+            format_func=lambda e: f"{e.get_id()} - {e.get_nome()}")
+
+        if entregador_selecionado:
+
+            nome_atual = entregador_selecionado.get_nome()
+            email_atual = entregador_selecionado.get_email()
+            fone_atual = entregador_selecionado.get_fone()
+
+
+            novo_nome = st.text_input("Novo nome", nome_atual)
+            novo_email = st.text_input("Novo e-mail", email_atual)
+            novo_fone = st.text_input("Novo fone", fone_atual)
 
         if st.button("Atualizar Entregador"):
             try:
-                View.Entregador_Atualizar(entregador_selecionado.get_id(), nome, email, fone)
+                View.Entregador_Atualizar(entregador_selecionado.get_id(), novo_nome, novo_email, novo_fone)
                 st.success("Entregador atualizado")
                 time.sleep(1)
                 st.rerun()
@@ -70,7 +85,10 @@ class ManterEntregadorUI:
             st.write("Nenhum entregador para excluir.")
             return
             
-        entregador_selecionado = st.selectbox("Selecione o entregador para excluir", entregadores)
+        entregador_selecionado = st.selectbox(
+            "Selecione o entregador para excluir",
+             entregadores,
+             format_func=lambda e: f"{e.get_id()} - {e.get_nome()}")
 
         if st.button("Excluir Entregador"):
             try:

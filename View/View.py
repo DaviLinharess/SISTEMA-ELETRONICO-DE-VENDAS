@@ -147,7 +147,7 @@ class View:
     @staticmethod
     def Entregador_Inserir(nome, email, senha, fone):
         for entregador in Entregadores.listar():
-            if entregador.get_email() == email():
+            if entregador.get_email().lower() == email().lower():
                 raise ValueError(f"O email '{email}' já está em uso.")
         novo_entregador=Entregador(None, nome, email, senha, fone)
         Entregadores.inserir(novo_entregador)

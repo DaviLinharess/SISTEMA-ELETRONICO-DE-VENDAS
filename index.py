@@ -6,7 +6,8 @@ from templates.manterprodutoUI import ManterProdutoUI
 from templates.mantervendaUI import ManterVendaUI
 from templates.loginUI import LoginUI
 from templates.manterentregadorUI import ManterEntregadorUI 
-from templates.manterentregaUI import ManterEntregaUI 
+from templates.manterentregaUI import ManterEntregaUI
+from templates.minhascomprasUI import MinhasComprasUI
 
 
 class IndexUI:
@@ -27,7 +28,8 @@ class IndexUI:
 
     def menu_cliente():
         op = st.sidebar.selectbox("Menu", ["Listar Produtos", "Adicionar Produto no Carrinho", "Ver Carrinho", "Fechar Pedido", "Ver Meus Pedidos"])
-
+        if op == "Ver Meus Pedidos": MinhasComprasUI.main()
+        
     def menu_entregador():
         ManterEntregaUI.main()
         
