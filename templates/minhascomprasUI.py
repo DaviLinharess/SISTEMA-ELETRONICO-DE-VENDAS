@@ -20,7 +20,8 @@ class MinhasComprasUI:
             return
 
         # Ordena as vendas da mais recente para a mais antiga
-        minhas_vendas.sort(key=lambda x: datetime.strptime(x.get_data(), "%d/%m/%Y %H:%M"), reverse=True)
+        minhas_vendas.sort(key=lambda x: x.get_data(), reverse=True)
+
 
         for venda in minhas_vendas:
             # Usamos um expander para cada pedido, fica mais organizado

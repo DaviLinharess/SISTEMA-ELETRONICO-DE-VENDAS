@@ -297,7 +297,7 @@ class View:
         return [item for item in VendaItens.listar() if item.get_id_venda() == carrinho.get_id()] #itens do carrinho
     
     @staticmethod
-    def carrinho_finalizar(id_cliente):
+    def carrinho_finalizar(cls, id_cliente):
         carrinho = None
         for v in Vendas.listar():
             if v.get_id_cliente() == id_cliente and v.get_carrinho():
