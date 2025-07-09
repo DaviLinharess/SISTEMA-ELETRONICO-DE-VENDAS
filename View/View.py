@@ -219,6 +219,11 @@ class View:
         return vendas_do_cliente
     
     @staticmethod
+    def VendaItem_Listar(id_venda):
+        from models.vendaitem import VendaItens
+        return [item for item in VendaItens.listar() if item.get_id_venda() == id_venda]
+    
+    @staticmethod
     def Venda_Listar_Cliente(id_cliente):
         # Retorna as vendas finalizadas de um cliente específico
         return [v for v in Vendas.listar() if v.get_id_cliente() == id_cliente and not v.get_carrinho()]
@@ -272,7 +277,7 @@ class View:
                 break
         
         if carrinho is None:
-            carrinho = Venda(None, datetime.now(), 0, id_cliente, True)
+            carrinho = Venda(None, datetime.now(), 0, id_cliente, True, False)
             Vendas.inserir(carrinho)    #criando carrinho caso n tenha nenhum
         
         produto = Produtos.listar_id(id_produto)
@@ -297,7 +302,7 @@ class View:
         return [item for item in VendaItens.listar() if item.get_id_venda() == carrinho.get_id()] #itens do carrinho
     
     @staticmethod
-    def carrinho_finalizar(cls, id_cliente):
+    def carrinho_finalizar(id_cliente):
         carrinho = None
         for v in Vendas.listar():
             if v.get_id_cliente() == id_cliente and v.get_carrinho():

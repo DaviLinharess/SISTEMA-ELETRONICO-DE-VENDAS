@@ -4,6 +4,23 @@
         "data": "07/07/2025 21:41",
         "total": 1839.5598,
         "id_cliente": 1,
-        "carrinho": false
+        "carrinho": false,
+        "entregue": false
+    },
+    {
+        "id": 2,
+        "data": "09/07/2025 16:28",
+        "total": 3167.0898,
+        "id_cliente": 1,
+        "carrinho": false,
+        "entregue": false
+    },
+    {
+        "id": 3,
+        "data": "09/07/2025 16:38",
+        "total": 416.6496,
+        "id_cliente": 1,
+        "carrinho": false,
+        "entregue": false
     }
 ]
