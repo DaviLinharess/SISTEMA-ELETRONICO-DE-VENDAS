@@ -57,7 +57,7 @@ class Entrega:
         return {
             "id": self.__id,
             "id_venda": self.__id_venda,
-            "entregador": self.__id_entregador,
+            "id_entregador": self.__id_entregador,
             "status": self.__status,
             "data": self.__data.strftime("%d/%m/%Y %H:%M")
         }

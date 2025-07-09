@@ -1,19 +1,5 @@
 [
     {
-        "id": 5,
-        "descricao": "Mesa",
-        "preco": 408.0,
-        "estoque": 14,
-        "id_categoria": 3
-    },
-    {
-        "id": 3,
-        "descricao": "Tablet",
-        "preco": 1734.0,
-        "estoque": 13,
-        "id_categoria": 2
-    },
-    {
         "id": 4,
         "descricao": "TV 32'",
         "preco": 1020.0,
@@ -33,5 +19,19 @@
         "preco": 5.0898,
         "estoque": 37,
         "id_categoria": 1
+    },
+    {
+        "id": 5,
+        "descricao": "Mesa",
+        "preco": 408.0,
+        "estoque": 13,
+        "id_categoria": 3
+    },
+    {
+        "id": 3,
+        "descricao": "Tablet",
+        "preco": 1734.0,
+        "estoque": 12,
+        "id_categoria": 2
     }
 ]

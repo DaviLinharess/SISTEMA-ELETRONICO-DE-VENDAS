@@ -223,7 +223,14 @@ class View:
                 vendas_do_cliente.append(venda)
                 
         return vendas_do_cliente
-    
+    @staticmethod
+    def Venda_Listar_id(id_venda):
+        from models.venda import Vendas
+        for v in Vendas.listar():
+            if v.get_id() == id_venda:
+                return v
+        return None
+
     @staticmethod
     def VendaItem_Listar(id_venda):
         from models.vendaitem import VendaItens

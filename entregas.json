@@ -1,30 +1,9 @@
 [
     {
         "id": 1,
-        "id_venda": 1,
-        "entregador": null,
-        "status": "Pendente",
-        "data": "07/07/2025 22:13"
-    },
-    {
-        "id": 2,
-        "id_venda": 2,
-        "entregador": null,
-        "status": "Pendente",
-        "data": "09/07/2025 16:46"
-    },
-    {
-        "id": 3,
-        "id_venda": 3,
-        "entregador": null,
-        "status": "Pendente",
-        "data": "09/07/2025 16:46"
-    },
-    {
-        "id": 4,
-        "id_venda": 4,
-        "entregador": 1,
-        "status": "Pendente",
-        "data": "09/07/2025 16:56"
+        "id_venda": 5,
+        "id_entregador": 1,
+        "status": "Entregue",
+        "data": "09/07/2025 17:18"
     }
 ]
