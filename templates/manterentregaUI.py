@@ -1,5 +1,5 @@
 import streamlit as st
-from View import View
+from View.View import View
 import time
 
 class ManterEntregaUI:

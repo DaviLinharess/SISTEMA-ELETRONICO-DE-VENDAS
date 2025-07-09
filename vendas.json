@@ -22,5 +22,13 @@
         "id_cliente": 1,
         "carrinho": false,
         "entregue": false
+    },
+    {
+        "id": 4,
+        "data": "09/07/2025 16:54",
+        "total": 2762.6496,
+        "id_cliente": 1,
+        "carrinho": false,
+        "entregue": false
     }
 ]

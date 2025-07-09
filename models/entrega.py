@@ -74,7 +74,7 @@ class Entregas(Modelo):
                     
                     obj = Entrega(dic["id"],
                                   dic["id_venda"],
-                                  dic["id_entregador"],
+                                  dic.get("id_entregador", None),
                                   dic["status"],
                                   data_obj)
                     cls.objetos.append(obj)

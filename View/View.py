@@ -171,6 +171,12 @@ class View:
         Entregadores.excluir(entregador)
 
     @staticmethod
+    def Entrega_Listar_Entregador(id_entregador):
+        from models.entrega import Entregas
+        return [entrega for entrega in Entregas.listar() if entrega.get_id_entregador() == id_entregador]
+
+
+    @staticmethod
     def Entrega_Listar_Entregador(id_entregador): #retorna uma lista de entregas de certo entregador
         minhas_entregas = []
         for entrega in Entregas.listar():
