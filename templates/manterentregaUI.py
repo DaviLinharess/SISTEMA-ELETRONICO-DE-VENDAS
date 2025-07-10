@@ -14,7 +14,6 @@ class ManterEntregaUI:
 
         minhas_entregas = View.Entrega_Listar_Entregador(id_entregador_logado) # buscar as entregas do entregador logado
         
-        # Filtra as entregas pendentes para a aba de confirmação
         entregas_pendentes = [e for e in minhas_entregas if e.get_status() == "Pendente"] # filtra as entregas pendentes na aba de confirmação
 
         tab1, tab2 = st.tabs(["Entregas Pendentes", "Histórico de Entregas"])
